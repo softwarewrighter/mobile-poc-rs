@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Sensor POC</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- App Header -->
+        <header class="app-bar">
+            <div class="app-title">
+                <span class="app-icon">📱</span>
+                <h1>Rust Sensor POC</h1>
+            </div>
+            <div class="status-indicator" id="status">
+                <span class="status-dot"></span>
+                <span class="status-text">Ready</span>
+            </div>
+        </header>
+
+        <!-- Sensor List -->
+        <main class="sensor-list" id="sensor-list">
+            <!-- Accelerometer Card -->
+            <div class="sensor-card" data-sensor="accelerometer">
+                <div class="card-header">
+                    <span class="sensor-icon">📱</span>
+                    <h2 class="sensor-name">Accelerometer</h2>
+                    <span class="sensor-status status-available">✓</span>
+                </div>
+                <div class="card-body">
+                    <div class="sensor-data">
+                        <div class="data-row">
+                            <span class="label">X:</span>
+                            <span class="value" id="accel-x">--</span>
+                            <span class="unit">m/s²</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Y:</span>
+                            <span class="value" id="accel-y">--</span>
+                            <span class="unit">m/s²</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Z:</span>
+                            <span class="value" id="accel-z">--</span>
+                            <span class="unit">m/s²</span>
+                        </div>
+                        <div class="data-row magnitude">
+                            <span class="label">Magnitude:</span>
+                            <span class="value" id="accel-mag">--</span>
+                            <span class="unit">m/s²</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="timestamp">Last updated: <span id="accel-time">never</span></span>
+                </div>
+            </div>
+
+            <!-- Magnetometer Card -->
+            <div class="sensor-card" data-sensor="magnetometer">
+                <div class="card-header">
+                    <span class="sensor-icon">🧭</span>
+                    <h2 class="sensor-name">Magnetometer</h2>
+                    <span class="sensor-status status-available">✓</span>
+                </div>
+                <div class="card-body">
+                    <div class="compass-display">
+                        <div class="compass-heading" id="mag-heading-large">0°</div>
+                        <div class="compass-direction" id="mag-direction">N</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="data-row">
+                            <span class="label">X:</span>
+                            <span class="value" id="mag-x">--</span>
+                            <span class="unit">μT</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Y:</span>
+                            <span class="value" id="mag-y">--</span>
+                            <span class="unit">μT</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Z:</span>
+                            <span class="value" id="mag-z">--</span>
+                            <span class="unit">μT</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="timestamp">Last updated: <span id="mag-time">never</span></span>
+                </div>
+            </div>
+
+            <!-- GPS Card -->
+            <div class="sensor-card" data-sensor="gps">
+                <div class="card-header">
+                    <span class="sensor-icon">📍</span>
+                    <h2 class="sensor-name">GPS Location</h2>
+                    <span class="sensor-status status-available">✓</span>
+                </div>
+                <div class="card-body">
+                    <div class="sensor-data">
+                        <div class="data-row">
+                            <span class="label">Latitude:</span>
+                            <span class="value" id="gps-lat">--</span>
+                            <span class="unit"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Longitude:</span>
+                            <span class="value" id="gps-lon">--</span>
+                            <span class="unit"></span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Altitude:</span>
+                            <span class="value" id="gps-alt">--</span>
+                            <span class="unit">m</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Accuracy:</span>
+                            <span class="value" id="gps-acc">--</span>
+                            <span class="unit">m</span>
+                        </div>
+                        <div class="data-row">
+                            <span class="label">Speed:</span>
+                            <span class="value" id="gps-speed">--</span>
+                            <span class="unit">m/s</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="timestamp">Last updated: <span id="gps-time">never</span></span>
+                </div>
+            </div>
+
+            <!-- Pressure Card -->
+            <div class="sensor-card" data-sensor="pressure">
+                <div class="card-header">
+                    <span class="sensor-icon">🌤️</span>
+                    <h2 class="sensor-name">Barometric Pressure</h2>
+                    <span class="sensor-status status-available">✓</span>
+                </div>
+                <div class="card-body">
+                    <div class="large-value" id="pressure-large">-- hPa</div>
+                    <div class="value-description" id="pressure-desc">--</div>
+                </div>
+                <div class="card-footer">
+                    <span class="timestamp">Last updated: <span id="pressure-time">never</span></span>
+                </div>
+            </div>
+
+            <!-- Temperature Card -->
+            <div class="sensor-card" data-sensor="temperature">
+                <div class="card-header">
+                    <span class="sensor-icon">🌡️</span>
+                    <h2 class="sensor-name">Temperature</h2>
+                    <span class="sensor-status status-unavailable">✗</span>
+                </div>
+                <div class="card-body">
+                    <div class="sensor-unavailable">
+                        <p>Temperature sensor is not available on most mobile devices.</p>
+                        <p class="note">Ambient temperature sensors are rare in smartphones.</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="timestamp">Sensor unavailable</span>
+                </div>
+            </div>
+
+            <!-- WiFi Scanner Card -->
+            <div class="sensor-card" data-sensor="wifi">
+                <div class="card-header">
+                    <span class="sensor-icon">📶</span>
+                    <h2 class="sensor-name">WiFi Networks</h2>
+                    <span class="sensor-status status-available">✓</span>
+                </div>
+                <div class="card-body">
+                    <div class="wifi-list" id="wifi-list">
+                        <!-- WiFi networks will be inserted here -->
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="timestamp">Last updated: <span id="wifi-time">never</span></span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Rust Mobile Sensor POC - TDD Demo</p>
+            <p class="note">Using mock data for demonstration</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

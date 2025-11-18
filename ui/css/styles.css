@@ -1,0 +1,424 @@
+/* Rust Sensor POC - Stylesheet */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette */
+    --primary: #2196F3;
+    --secondary: #FFC107;
+    --success: #4CAF50;
+    --warning: #FF9800;
+    --error: #F44336;
+    --bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --text-primary: #212121;
+    --text-secondary: #757575;
+    --border: #E0E0E0;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* Typography */
+    --font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'Roboto Mono', 'Courier New', monospace;
+
+    /* Shadows */
+    --shadow-1: 0 1px 3px rgba(0,0,0,0.12);
+    --shadow-2: 0 2px 6px rgba(0,0,0,0.16);
+    --shadow-3: 0 4px 12px rgba(0,0,0,0.20);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+#app {
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* App Header */
+.app-bar {
+    background: var(--primary);
+    color: white;
+    padding: var(--space-md) var(--space-lg);
+    box-shadow: var(--shadow-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.app-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.app-icon {
+    font-size: 1.5em;
+}
+
+.app-bar h1 {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: 0.9em;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Sensor List */
+.sensor-list {
+    flex: 1;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+/* Sensor Card */
+.sensor-card {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.sensor-card:hover {
+    box-shadow: var(--shadow-2);
+}
+
+.card-header {
+    padding: var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+}
+
+.sensor-icon {
+    font-size: 1.5em;
+}
+
+.sensor-name {
+    flex: 1;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.sensor-status {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.status-available {
+    color: var(--success);
+}
+
+.status-unavailable {
+    color: var(--error);
+}
+
+.status-warning {
+    color: var(--warning);
+}
+
+.card-body {
+    padding: var(--space-md);
+}
+
+.sensor-data {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.data-row {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: var(--space-sm);
+    align-items: baseline;
+}
+
+.data-row.magnitude {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+    font-weight: 500;
+}
+
+.label {
+    color: var(--text-secondary);
+    font-size: 0.95em;
+}
+
+.value {
+    font-family: var(--font-mono);
+    font-size: 1.1em;
+    font-weight: 500;
+    text-align: right;
+}
+
+.unit {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    min-width: 40px;
+}
+
+.large-value {
+    font-size: 2.5em;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    text-align: center;
+    color: var(--primary);
+    margin: var(--space-md) 0;
+}
+
+.value-description {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1em;
+}
+
+/* Compass Display */
+.compass-display {
+    text-align: center;
+    margin: var(--space-md) 0;
+    padding: var(--space-md);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: var(--radius-md);
+    color: white;
+}
+
+.compass-heading {
+    font-size: 3em;
+    font-family: var(--font-mono);
+    font-weight: bold;
+}
+
+.compass-direction {
+    font-size: 2em;
+    font-weight: 500;
+    margin-top: var(--space-sm);
+}
+
+/* WiFi List */
+.wifi-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.wifi-network {
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wifi-network:hover {
+    background: var(--bg);
+}
+
+.wifi-info {
+    flex: 1;
+}
+
+.wifi-ssid {
+    font-weight: 500;
+    font-size: 1.1em;
+    margin-bottom: var(--space-xs);
+}
+
+.wifi-details {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.wifi-signal {
+    text-align: right;
+}
+
+.signal-bars {
+    font-size: 1.2em;
+    margin-bottom: var(--space-xs);
+}
+
+.signal-strength {
+    color: var(--text-secondary);
+    font-size: 0.85em;
+}
+
+/* Signal Strength Colors */
+.signal-excellent { color: var(--success); }
+.signal-good { color: var(--primary); }
+.signal-fair { color: var(--warning); }
+.signal-weak { color: var(--error); }
+
+/* Sensor Unavailable */
+.sensor-unavailable {
+    text-align: center;
+    padding: var(--space-lg);
+    color: var(--text-secondary);
+}
+
+.sensor-unavailable p {
+    margin-bottom: var(--space-sm);
+}
+
+.note {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* Card Footer */
+.card-footer {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+}
+
+.timestamp {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+}
+
+/* App Footer */
+.app-footer {
+    background: var(--surface);
+    padding: var(--space-lg);
+    text-align: center;
+    border-top: 1px solid var(--border);
+    margin-top: auto;
+}
+
+.app-footer p {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: var(--space-xs);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .app-bar {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .app-bar h1 {
+        font-size: 1.2em;
+    }
+
+    .sensor-list {
+        padding: var(--space-md);
+        gap: var(--space-sm);
+    }
+
+    .data-row {
+        grid-template-columns: 100px 1fr auto;
+        font-size: 0.95em;
+    }
+
+    .large-value {
+        font-size: 2em;
+    }
+
+    .compass-heading {
+        font-size: 2.5em;
+    }
+}
+
+/* Tablet and larger */
+@media (min-width: 768px) {
+    .sensor-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+    }
+
+    .sensor-card[data-sensor="wifi"],
+    .sensor-card[data-sensor="gps"] {
+        grid-column: span 2;
+    }
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: 200px 0; }
+}
+
+.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-md {
+    margin-top: var(--space-md);
+}
+
+.mb-md {
+    margin-bottom: var(--space-md);
+}

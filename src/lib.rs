@@ -4,13 +4,17 @@
 // mobile device sensors including accelerometer, magnetometer, GPS,
 // pressure, temperature, and WiFi scanning.
 
+pub mod mocks;
 pub mod models;
+pub mod services;
 
 // Re-export main types for convenience
 pub use models::{
-    AccelerometerData, GpsData, MagnetometerData, PressureData, SensorError, TemperatureData,
-    WifiNetwork,
+    calculate_heading, get_cardinal_direction, AccelerometerData, GpsData, MagnetometerData,
+    PressureData, SensorError, TemperatureData, WifiNetwork,
 };
+
+pub use services::SensorService;
 
 #[cfg(test)]
 mod tests {
